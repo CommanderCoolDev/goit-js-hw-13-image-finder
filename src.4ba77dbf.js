@@ -73,4 +73,4 @@ module.exports=require("./lib/axios");
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./js/imageFinder"),require("./css/styles.css");
 },{"./js/imageFinder":"me4w","./css/styles.css":"krre"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-13-image-finder/src.5893acae.js.map
+//# sourceMappingURL=/goit-js-hw-13-image-finder/src.4ba77dbf.js.map
