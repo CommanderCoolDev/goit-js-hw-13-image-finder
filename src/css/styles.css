@@ -50,7 +50,7 @@ input {
   padding: 10px;
   border-radius: 5px;
   outline: none;
-  color: peru;
+  color: green;
 }
 
 span {
@@ -77,7 +77,7 @@ span {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: rebeccapurple;
+  color: #000;
 }
 
 .stats-item {
@@ -97,9 +97,9 @@ span {
 .gallery__image:hover {
   transform: scale(1.03);
   cursor: zoom-in;
-  -webkit-box-shadow: 0px 0px 64px 8px rgba(255, 148, 255, 1);
-  -moz-box-shadow: 0px 0px 64px 8px rgba(255, 148, 255, 1);
-  box-shadow: 0px 0px 64px 8px rgba(255, 148, 255, 1);
+  -webkit-box-shadow: 0px 0px 64px 8px rgb(53, 176, 28);
+  -moz-box-shadow: 0px 0px 64px 8px rgb(53, 176, 28);
+  box-shadow: 0px 0px 64px 8px rgb(53, 176, 28);
 }
 
 .gallery__image {
@@ -174,7 +174,7 @@ span {
 .add-more {
   visibility: hidden;
   background: rgba(238, 238, 238, 0.247);
-  color: peru;
+  color: black;
   text-decoration: none;
   display: block;
   width: 90px;
@@ -182,7 +182,7 @@ span {
   margin: 10px auto;
   padding: 10px 10px;
   transition: all 0.3s;
-  border: 2px solid rgba(255, 148, 255, 0.5);
+  border: 2px solid rgb(53, 176, 28);
   cursor: pointer;
   border-radius: 3px;
   outline: none;
