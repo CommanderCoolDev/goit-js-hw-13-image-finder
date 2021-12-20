@@ -1,6 +1,7 @@
 import template from '../templates/imageCard.hbs';//ипорт шаблона
 import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs';// импорт ссылок
 import getPictures from '../helpers/apiService';
+import { error } from '@pnotify/core/dist/PNotify.js';
 
 // объект значений которые будут использоваться для запросов
 const state = {
@@ -47,6 +48,11 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `&q=${input.value}`;
+ 
+  if (state.query === '&q=') {
+      console.log(state.query);
+    return error({ delay: 2500, text: 'Enter something...' });
+  }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
     const data = response.data.hits;
