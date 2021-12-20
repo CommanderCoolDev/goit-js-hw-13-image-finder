@@ -1,5 +1,5 @@
-import template from '../templates/imageCard.hbs';//ипорт шаблона
-import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs';// импорт ссылок
+import template from '../templates/imageCard.hbs'; //ипорт шаблона
+import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs'; // импорт ссылок
 import getPictures from '../services/apiService';
 import { error } from '@pnotify/core/dist/PNotify';
 import '@pnotify/core/dist/PNotify.css';
@@ -50,7 +50,7 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
- console.log(state.query);
+  console.log(state.query);
   if (state.query.length === 0 || !state.query.trim()) {
     addPictures.removeAttribute('style');
     return error({ delay: 2500, text: 'Go clearly my friend.....' });
