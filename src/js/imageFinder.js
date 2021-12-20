@@ -49,11 +49,8 @@ function sendSubmit(e) {
   ul.innerHTML = ``;
   state.query = `${input.value}`;
  console.log(state.query);
-  if (state.query === '') {
-      console.log(state.query);
-    return error({ delay: 1500, text: 'Enter something...' });
-  } else if (state.query.length === 0 || !state.query.trim()) {
-    return error({ delay: 1500, text: 'not space' });
+ if (state.query.length === 0 || !state.query.trim()) {
+    return error({ delay: 1500, text: 'Go clearly my friend.....' });
   }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
