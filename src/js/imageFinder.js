@@ -1,6 +1,6 @@
 import template from '../templates/imageCard.hbs';//ипорт шаблона
 import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs';// импорт ссылок
-import getPictures from '../helpers/apiService';
+import getPictures from '../services/apiService';
 import { error } from '@pnotify/core/dist/PNotify';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
