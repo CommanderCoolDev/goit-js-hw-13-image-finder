@@ -2,6 +2,8 @@ import template from '../templates/imageCard.hbs';//ипорт шаблона
 import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs';// импорт ссылок
 import getPictures from '../helpers/apiService';
 import { error } from '@pnotify/core/dist/PNotify';
+import '@pnotify/core/dist/PNotify.css';
+import '@pnotify/core/dist/BrightTheme.css';
 
 // объект значений которые будут использоваться для запросов
 const state = {
@@ -25,23 +27,23 @@ const options = {
 };
 
 // Функция которая догружает изображения, когда срабатывает observer
-const loadImage = function () {
-  if (state.page > 1) {
-    state.page += 1;
-    getPictures(state.query, state.page).then(resp => {
-      const data = resp.data.hits;
-      const mark = template(data);
-      ul.insertAdjacentHTML(`beforeend`, mark);
-    });
-  }
-};
+// const loadImage = function () {
+//   if (state.page > 1) {
+//     state.page += 1;
+//     getPictures(state.query, state.page).then(resp => {
+//       const data = resp.data.hits;
+//       const mark = template(data);
+//       ul.insertAdjacentHTML(`beforeend`, mark);
+//     });
+//   }
+// };
 
 // инициализируем объект observer
-const observer = new IntersectionObserver(loadImage, options);
-// говорим обзерверу следить за картинкой перебирая массив всех картинок
-[...targets].forEach(target => {
-  observer.observe(target);
-});
+// const observer = new IntersectionObserver(loadImage, options);
+// // говорим обзерверу следить за картинкой перебирая массив всех картинок
+// [...targets].forEach(target => {
+//   observer.observe(target);
+// });
 
 // функция отправки сабмита
 function sendSubmit(e) {
@@ -49,8 +51,9 @@ function sendSubmit(e) {
   ul.innerHTML = ``;
   state.query = `${input.value}`;
  console.log(state.query);
- if (state.query.length === 0 || !state.query.trim()) {
-    return error({ delay: 1500, text: 'Go clearly my friend.....' });
+  if (state.query.length === 0 || !state.query.trim()) {
+    addPictures.removeAttribute('style');
+    return error({ delay: 2500, text: 'Go clearly my friend.....' });
   }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
@@ -71,7 +74,7 @@ function addNewPictures() {
     const mark = template(data);
     ul.insertAdjacentHTML(`beforeend`, mark);
   });
-  addPictures.removeAttribute('style');
+  // addPictures.removeAttribute('style');
 }
 
 // Функция открытия модалки
