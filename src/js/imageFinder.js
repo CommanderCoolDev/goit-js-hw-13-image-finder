@@ -48,11 +48,11 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
- 
+ console.log(state.query);
   if (state.query === '') {
       console.log(state.query);
     return error({ delay: 1500, text: 'Enter something...' });
-  } else if (state.query) {
+  } else if (state.query.length === 0 || !state.query.trim()) {
     return error({ delay: 1500, text: 'not space' });
   }
   addPictures.style.visibility = `hidden`;
