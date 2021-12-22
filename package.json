@@ -8,7 +8,7 @@
     "dev": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/",
     "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build",
+    "predeploy": "npx prettier --write . && npm run build",
     "format": "npx prettier --write ."
   },
   "repository": {
