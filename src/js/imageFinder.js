@@ -52,7 +52,7 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
-  if (state.page > 1) {
+  if (state.page > 1 || totalImg > 0) {
     state.page = 1;
     totalImg = 0;
   }
@@ -64,8 +64,9 @@ function sendSubmit(e) {
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
     const data = response.data.hits;
+    totalImg += response.data.hits.length;
 
-    if (data.length >= 1) {
+    if (data.length >= 1 && totalImg !== response.data.totalHits) {
       addPictures.style.visibility = `visible`;
     }
     if (data.length === 0) {
@@ -74,7 +75,7 @@ function sendSubmit(e) {
         text: 'Sorry, there are no images matching your search query. Please try again.',
       });
     }
-    totalImg += response.data.hits.length;
+    console.log(totalImg);
 
     info({ delay: 2500, text: `Hooray! We found ${response.data.totalHits} images.` });
     const markup = template(data);
