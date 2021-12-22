@@ -17,14 +17,14 @@ ul.addEventListener(`click`, opneModal);
 addPictures.addEventListener(`click`, addNewPictures);
 modalDiv.addEventListener(`click`, closeModalWindow);
 
-// таргеты за которыми будем следить observer
-const targets = document.getElementsByClassName('modal-img');
-// настройки нашего observer
-const options = {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0.5,
-};
+// // таргеты за которыми будем следить observer
+// const targets = document.getElementsByClassName('modal-img');
+// // настройки нашего observer
+// const options = {
+//   root: null,
+//   rootMargin: '0px',
+//   threshold: 0.5,
+// };
 
 // Функция которая догружает изображения, когда срабатывает observer
 // const loadImage = function () {
