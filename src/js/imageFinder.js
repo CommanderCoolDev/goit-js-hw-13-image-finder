@@ -52,6 +52,10 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
+  if (state.page > 1) {
+    state.page = 1;
+    totalImg = 0;
+  }
 
   if (state.query.length === 0 || !state.query.trim()) {
     addPictures.removeAttribute('style');
@@ -60,7 +64,6 @@ function sendSubmit(e) {
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
     const data = response.data.hits;
-    totalImg += response.data.hits.length;
 
     if (data.length >= 1) {
       addPictures.style.visibility = `visible`;
@@ -71,6 +74,8 @@ function sendSubmit(e) {
         text: 'Sorry, there are no images matching your search query. Please try again.',
       });
     }
+    totalImg += response.data.hits.length;
+
     info({ delay: 2500, text: `Hooray! We found ${response.data.totalHits} images.` });
     const markup = template(data);
     ul.insertAdjacentHTML(`beforeend`, markup);
@@ -83,12 +88,14 @@ function addNewPictures() {
   getPictures(state.query, state.page).then(resp => {
     const data = resp.data.hits;
     totalImg += resp.data.hits.length;
-    console.log(totalImg);
     const mark = template(data);
     ul.insertAdjacentHTML(`beforeend`, mark);
     if (totalImg === resp.data.totalHits) {
       addPictures.style.visibility = `hidden`;
-      return error({ delay: 2500, text: 'Thats all folks...' });
+      return error({
+        delay: 2500,
+        text: "We're sorry, but you've reached the end of search results.",
+      });
     }
   });
 }
