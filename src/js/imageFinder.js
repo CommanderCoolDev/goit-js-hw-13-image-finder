@@ -52,21 +52,24 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
- 
-    if (state.query.length === 0 || !state.query.trim()) {
+
+  if (state.query.length === 0 || !state.query.trim()) {
     addPictures.removeAttribute('style');
     return error({ delay: 2500, text: 'Go clearly my friend.....' });
   }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
-     const data = response.data.hits;
+    const data = response.data.hits;
     totalImg += response.data.hits.length;
-    
+
     if (data.length >= 1) {
       addPictures.style.visibility = `visible`;
     }
     if (data.length === 0) {
-       return error({ delay: 2500, text: 'Sorry, there are no images matching your search query. Please try again.' });
+      return error({
+        delay: 2500,
+        text: 'Sorry, there are no images matching your search query. Please try again.',
+      });
     }
     info({ delay: 2500, text: `Hooray! We found ${response.data.totalHits} images.` });
     const markup = template(data);
