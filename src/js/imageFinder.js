@@ -1,7 +1,7 @@
 import template from '../templates/imageCard.hbs'; //ипорт шаблона
 import { searchForm, input, ul, modalDiv, modalDivButton, modalImg, addPictures } from './refs'; // импорт ссылок
 import getPictures from '../services/apiService';
-import { error } from '@pnotify/core/dist/PNotify';
+import { error, info } from '@pnotify/core/dist/PNotify';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
 
@@ -52,20 +52,23 @@ function sendSubmit(e) {
   e.preventDefault();
   ul.innerHTML = ``;
   state.query = `${input.value}`;
-  console.log(state.query);
-  if (state.query.length === 0 || !state.query.trim()) {
+ 
+    if (state.query.length === 0 || !state.query.trim()) {
     addPictures.removeAttribute('style');
     return error({ delay: 2500, text: 'Go clearly my friend.....' });
   }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
-    // console.log(response)
-    const data = response.data.hits;
+     const data = response.data.hits;
     totalImg += response.data.hits.length;
-    console.log(totalImg)
+    
     if (data.length >= 1) {
       addPictures.style.visibility = `visible`;
     }
+    if (data.length === 0) {
+       return error({ delay: 2500, text: 'Sorry, there are no images matching your search query. Please try again.' });
+    }
+    info({ delay: 2500, text: `Hooray! We found ${response.data.totalHits} images.` });
     const markup = template(data);
     ul.insertAdjacentHTML(`beforeend`, markup);
   });
@@ -75,17 +78,17 @@ function sendSubmit(e) {
 function addNewPictures() {
   state.page += 1;
   getPictures(state.query, state.page).then(resp => {
-     const data = resp.data.hits;
+    const data = resp.data.hits;
     totalImg += resp.data.hits.length;
-    console.log(totalImg)
-      const mark = template(data);
+    console.log(totalImg);
+    const mark = template(data);
     ul.insertAdjacentHTML(`beforeend`, mark);
-      if (totalImg === resp.data.totalHits) {
-     addPictures.style.visibility = `hidden`;
+    if (totalImg === resp.data.totalHits) {
+      addPictures.style.visibility = `hidden`;
       return error({ delay: 2500, text: 'Thats all folks...' });
     }
   });
-  }
+}
 
 // Функция открытия модалки
 function opneModal(e) {
