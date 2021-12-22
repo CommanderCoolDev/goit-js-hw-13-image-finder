@@ -17,6 +17,8 @@ ul.addEventListener(`click`, opneModal);
 addPictures.addEventListener(`click`, addNewPictures);
 modalDiv.addEventListener(`click`, closeModalWindow);
 
+let totalImg = 0;
+
 // // таргеты за которыми будем следить observer
 // const targets = document.getElementsByClassName('modal-img');
 // // настройки нашего observer
@@ -57,7 +59,10 @@ function sendSubmit(e) {
   }
   addPictures.style.visibility = `hidden`;
   getPictures(state.query, state.page).then(response => {
+    // console.log(response)
     const data = response.data.hits;
+    totalImg += response.data.hits.length;
+    console.log(totalImg)
     if (data.length >= 1) {
       addPictures.style.visibility = `visible`;
     }
@@ -70,12 +75,17 @@ function sendSubmit(e) {
 function addNewPictures() {
   state.page += 1;
   getPictures(state.query, state.page).then(resp => {
-    const data = resp.data.hits;
-    const mark = template(data);
+     const data = resp.data.hits;
+    totalImg += resp.data.hits.length;
+    console.log(totalImg)
+      const mark = template(data);
     ul.insertAdjacentHTML(`beforeend`, mark);
+      if (totalImg === resp.data.totalHits) {
+     addPictures.style.visibility = `hidden`;
+      return error({ delay: 2500, text: 'Thats all folks...' });
+    }
   });
-  // addPictures.removeAttribute('style');
-}
+  }
 
 // Функция открытия модалки
 function opneModal(e) {
